@@ -3,8 +3,8 @@
 
 koa   web框架
 koa-bodyparser 处理koa post请求
-sequelize、sequelize-typescript、mysql2 ORM框架与Mysql
-validator、class-validator 参数校验
+mysql2 ORM框架与Mysql
+class-validator 参数校验
 jsonwebtoken jwt
 bcryptjs 加密工具
 reflect-metadata 给装饰器添加各种信息
@@ -20,7 +20,7 @@ TODO:
 - [] jwt
 - [] Connect MySQL
 - [] redis
-
+- [] class-validator
 
 
 
