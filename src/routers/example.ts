@@ -1,4 +1,6 @@
 import Router from "koa-router";
+import getUniqueID from "../utils/snowflake";
+
 const router = new Router();
 
 router.get("/example", async (ctx) => {
@@ -6,6 +8,17 @@ router.get("/example", async (ctx) => {
     ctx.body = {
       msg: "success example23",
       data: "ping",
+    };
+  } catch (e) {
+    console.error(e);
+  }
+});
+
+router.get("/example/snowflake", async (ctx) => {
+  try {
+    ctx.body = {
+      msg: "success example23",
+      data: `${getUniqueID()}`,
     };
   } catch (e) {
     console.error(e);

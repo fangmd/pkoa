@@ -1,5 +1,5 @@
 import { IConfig } from "./base";
 
 export const prodConf: IConfig = {
-  port: 9091,
+  port: 9090,
 };
