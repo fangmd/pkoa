@@ -1,3 +1,5 @@
+import { plainToClass } from "class-transformer";
+import { transformAndValidate } from "class-transformer-validator";
 import { validate, ValidationError } from "class-validator";
 import { Context } from "koa";
 import { User } from "../entity/user";
@@ -14,8 +16,10 @@ export default class UserController {
   }
 
   public static async getUserById(ctx: Context) {
-    const vali: GetDeleteUser = ctx.query;
-    const errors: ValidationError[] = await validate(vali, {});
+    const vali = await plainToClass(GetDeleteUser, ctx.query);
+    const errors = await validate(vali, {
+      forbidUnknownValues: true,
+    });
     if (errors.length > 0) {
       ctx.body = errors;
       return;
@@ -26,15 +30,15 @@ export default class UserController {
   }
 
   public static async addUser(ctx: Context) {
-    const vali: CreateUser = ctx.request.body;
-    const errors: ValidationError[] = await validate(vali, {});
-    console.log(errors);
+    const vali = await plainToClass(CreateUser, ctx.request.body);
+    const errors = await validate(vali, {
+      forbidUnknownValues: true,
+    });
     if (errors.length > 0) {
       ctx.body = errors;
       return;
     }
 
-    console.log(vali);
     const user: User = ctx.request.body;
     user.id = `${getUniqueID()}`;
     ctx.status = 200;
@@ -56,8 +60,10 @@ export default class UserController {
   }
 
   public static async deleteUser(ctx: Context) {
-    const vali: GetDeleteUser = ctx.query;
-    const errors: ValidationError[] = await validate(vali, {});
+    const vali = await plainToClass(GetDeleteUser, ctx.query);
+    const errors = await validate(vali, {
+      forbidUnknownValues: true,
+    });
     if (errors.length > 0) {
       ctx.body = errors;
       return;

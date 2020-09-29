@@ -1,16 +1,13 @@
 import { IsEmail, IsNotEmpty, Length, MinLength } from "class-validator";
 
 export class CreateUser {
-  @Length(10, 20)
+  @Length(0)
   username?: string;
 
   @MinLength(8, {
-    message: "Password is too short",
+    message: "Password Length must >= 8",
   })
   password?: string;
-
-  @IsEmail({}, { message: "邮箱格式错误" })
-  email?: string;
 }
 
 export class GetDeleteUser {

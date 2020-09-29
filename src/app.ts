@@ -17,7 +17,7 @@ app.use(Bodyparser());
 //TODO: cors
 
 router.get("/", async (ctx) => {
-  ctx.body = { msg: "Hello world!3332" };
+  ctx.body = { msg: "Hello world!" };
 });
 
 app.use(router.routes());
