@@ -13,9 +13,9 @@ lodash 非常好用的工具函数库
 
 TODO:
 
-- [] jwt
+- [ ] jwt
 - [x] ORM: typerom, mysql2
-- [] redis
+- [ ] redis
 - [x] 请求参数验证 class-validator class-transformer
 
 
