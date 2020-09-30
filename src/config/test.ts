@@ -1,6 +1,9 @@
 import { IConfig } from "./base";
 
-export const prodConf: IConfig = {
+/**
+ * 测试环境
+ */
+export const testConf: IConfig = {
   port: 9090,
   mysql: {
     host: process.env.DATABASE_HOST || "0.0.0.0",

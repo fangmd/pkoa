@@ -1,5 +1,5 @@
 import { IsString, Length, max, validate } from "class-validator";
-import { CreateUser } from "./validators/user";
+import { CreateUser } from "../src/validators/user";
 
 let x = new CreateUser();
 x.username = "s1212";
