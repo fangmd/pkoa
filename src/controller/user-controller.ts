@@ -5,8 +5,9 @@ import { Context } from "koa";
 import { User } from "../entity/user";
 import UserService from "../service/user-service";
 import HttpResult from "../utils/http-result";
+import JwtUtils from "../utils/jwt-utils";
 import getUniqueID from "../utils/snowflake";
-import { CreateUser, GetDeleteUser } from "../validators/user";
+import { CreateUser, GetDeleteUser, UserLogin } from "../validators/user";
 
 export default class UserController {
   public static async getUsers(ctx: Context) {
@@ -15,18 +16,31 @@ export default class UserController {
     ctx.body = HttpResult.success(users);
   }
 
+  /**
+   * 获取用户信息(自己或者他人)
+   */
   public static async getUserById(ctx: Context) {
-    const vali = await plainToClass(GetDeleteUser, ctx.query);
-    const errors = await validate(vali, {
-      forbidUnknownValues: true,
-    });
-    if (errors.length > 0) {
-      ctx.body = errors;
-      return;
+    // const vali = await plainToClass(GetDeleteUser, ctx.query);
+    // const errors = await validate(vali, {
+    //   forbidUnknownValues: true,
+    // });
+    // if (errors.length > 0) {
+    //   ctx.body = errors;
+    //   return;
+    // }
+
+    let id;
+    if (ctx.query.id) {
+      id = ctx.query.id;
+    } else {
+      const userId = JwtUtils.getUserId(ctx);
+      if (userId) {
+        id = userId;
+      }
     }
 
     ctx.status = 200;
-    ctx.body = HttpResult.success(await UserService.getUserById(ctx.query.id));
+    ctx.body = HttpResult.success(await UserService.getUserById(id));
   }
 
   public static async addUser(ctx: Context) {
@@ -78,5 +92,26 @@ export default class UserController {
       const user: User = await UserService.deleteUser(findUser);
       ctx.body = HttpResult.success();
     }
+  }
+
+  public static async userLogin(ctx: Context) {
+    const vali = await plainToClass(UserLogin, ctx.request.body);
+    const errors = await validate(vali, {
+      forbidUnknownValues: true,
+    });
+    if (errors.length > 0) {
+      ctx.body = errors;
+      return;
+    }
+
+    const { data, error } = await UserService.userLogin(ctx.request.body);
+    if (error) {
+      ctx.body = HttpResult.fail(error);
+      return;
+    }
+    ctx.body = HttpResult.success({
+      username: data?.username,
+      jwt: JwtUtils.sign({ username: data?.username, id: data?.id }),
+    });
   }
 }

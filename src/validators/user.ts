@@ -14,3 +14,13 @@ export class GetDeleteUser {
   @IsNotEmpty()
   id?: string;
 }
+
+export class UserLogin {
+  @Length(0)
+  username?: string;
+
+  @MinLength(8, {
+    message: "Password Length must >= 8",
+  })
+  password?: string;
+}

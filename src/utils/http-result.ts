@@ -1,4 +1,5 @@
 import HttpC from "../constants/http-c";
+import HttpMsg from "../constants/http-msg";
 /**
  * 网络请求结果封装类
  * Restful 接口结果封装
@@ -20,8 +21,13 @@ export default class HttpResult {
   }
 
   // Create Fail HttpResult
-  static fail(code: number, msg: string): HttpResult {
+  static failMsg(code: number, msg: string): HttpResult {
     return new HttpResult(code, msg);
+  }
+
+  // Create Fail HttpResult
+  static fail(code: number): HttpResult {
+    return new HttpResult(code, HttpMsg.getMsg(code));
   }
 
   public toString(): string {
