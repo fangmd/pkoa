@@ -1,4 +1,3 @@
-import { loadavg } from "os";
 import { IConfig } from "./base";
 import { devConf } from "./dev";
 import { prodConf } from "./prod";

@@ -10,4 +10,7 @@ export default class HttpC {
 
   // 用户不存在
   public static readonly USER_NOT_EXIST = 2003;
+
+  // 用户名已经存在
+  public static readonly USER_NAME_IS_TAKEN = 2004;
 }

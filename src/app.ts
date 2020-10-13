@@ -32,9 +32,11 @@ app.use(Bodyparser());
 
 app.use(
   jwt({ secret: jwtSecret }).unless({
-    path: [/^\/public/, /^\/example/, "/login"],
+    path: [/^\/public/, /^\/example/, "/login", "/register"],
   })
 );
+
+// { url: "/user", method: ["POST"] },
 
 //TODO: cors
 

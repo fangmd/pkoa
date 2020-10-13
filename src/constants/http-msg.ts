@@ -6,12 +6,11 @@ import HttpC from "./http-c";
  */
 export default class HttpMsg {
   public static readonly map: Map<number, string> = new Map([
-    [12, "成功"],
     [HttpC.SUCCESS, "成功"],
     [HttpC.AUTH_ERROR, "未登陆"],
     [HttpC.PWD_ERROR, "密码错误"],
     [HttpC.USER_NOT_EXIST, "用户不存在"],
-    
+    [HttpC.USER_NAME_IS_TAKEN, "用户名已经被使用"],
     
     // { key: HttpC.SUCCESS, value: "成功" },
     // { key: HttpC.AUTH_ERROR, value: "未登陆" },

@@ -6,6 +6,7 @@ import { User } from "../entity/user";
 import UserService from "../service/user-service";
 import HttpResult from "../utils/http-result";
 import JwtUtils from "../utils/jwt-utils";
+import MD5Utils from "../utils/md5";
 import getUniqueID from "../utils/snowflake";
 import { CreateUser, GetDeleteUser, UserLogin } from "../validators/user";
 
@@ -55,8 +56,15 @@ export default class UserController {
 
     const user: User = ctx.request.body;
     user.id = `${getUniqueID()}`;
+    user.password = MD5Utils.hashStr(user.password);
+    const { error, data } = await UserService.addUser(user);
+
     ctx.status = 200;
-    ctx.body = await UserService.addAndUpdateUser(user);
+    if (error) {
+      ctx.body = HttpResult.fail(error);
+    } else {
+      ctx.body = HttpResult.success({ jwt: data?.username });
+    }
   }
 
   public static async updateUser(ctx: Context) {
