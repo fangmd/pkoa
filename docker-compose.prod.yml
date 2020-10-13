@@ -1,5 +1,21 @@
 version: "3.8"
 services:
+  mysql1:
+    build: ./compose/mysql-service-test
+    volumes:
+      - ./local/mysql:/var/lib/mysql
+    networks:
+      - app-network
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test
+      MYSQL_USER: test
+      DATABASE_PASSWORD: root
+    expose:
+      - "3306"
+    ports:
+      - "3306:3306"
+
   api:
     build:
       context: ./
@@ -23,21 +39,6 @@ services:
       - DATABASE_USER=root
       - DATABASE_DB_NAME=test
 
-  mysql1:
-    build: ./compose/mysql-service-test
-    volumes:
-      - ./local/mysql:/var/lib/mysql
-    networks:
-      - app-network
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: test
-      MYSQL_USER: test
-      DATABASE_PASSWORD: root
-    expose:
-      - "3306"
-    ports:
-      - "3306:3306"
 networks:
   app-network:
     driver: bridge

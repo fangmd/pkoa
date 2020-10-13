@@ -63,7 +63,7 @@ export default class UserController {
     if (error) {
       ctx.body = HttpResult.fail(error);
     } else {
-      ctx.body = HttpResult.success({ jwt: data?.username });
+      ctx.body = HttpResult.success({ username: data?.username });
     }
   }
 
