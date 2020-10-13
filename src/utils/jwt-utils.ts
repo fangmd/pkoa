@@ -16,7 +16,6 @@ export default class JwtUtils {
    */
   public static getJWT(ctx: Context): string | undefined {
     let auth: string | undefined = ctx.headers.authorization;
-    console.log(auth);
     return auth?.replace("Bearer ", "");
   }
 
@@ -27,7 +26,6 @@ export default class JwtUtils {
     const token = this.getJWT(ctx);
     if (token) {
       const data = jsonwebtoken.decode(token);
-      console.log(data);
       if (data) {
         return (data as { [key: string]: any }).id;
       }
