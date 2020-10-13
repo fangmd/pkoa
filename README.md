@@ -6,7 +6,15 @@
 ```
 docker-compose up -d
 ```
-> docker 设置中： Use gRPC FUSE for file sharing （去掉勾选）
+
+
+aliyun:(第一次要执行两次)
+
+```
+docker-compose -f docker-compose.test.yml up
+
+docker-compose -f docker-compose.test.yml up -d
+```
 
 
 ## 其他
