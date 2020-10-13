@@ -6,6 +6,7 @@ services:
       - ./local/mysql:/var/lib/mysql
     networks:
       - app-network
+    command: --lower_case_table_names=1
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: test
