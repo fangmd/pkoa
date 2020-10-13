@@ -28,7 +28,7 @@ services:
     links:
       - mysql1
     ports:
-      - "3008:3008"
+      - "3009:3009"
     volumes:
       - ./src:/app/src
     environment:
