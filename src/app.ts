@@ -32,7 +32,7 @@ app.use(Bodyparser());
 
 app.use(
   jwt({ secret: jwtSecret }).unless({
-    path: [/^\/public/, /^\/example/, "/login", "/register"],
+    path: [/^\/public/, /^\/example/, "/login", "/register", "/"],
   })
 );
 
