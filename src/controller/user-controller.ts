@@ -8,7 +8,12 @@ import HttpResult from "../utils/http-result";
 import JwtUtils from "../utils/jwt-utils";
 import MD5Utils from "../utils/md5";
 import getUniqueID from "../utils/snowflake";
-import { CreateUser, GetDeleteUser, UserLogin } from "../validators/user";
+import {
+  CreateUser,
+  GetDeleteUser,
+  UpdateUser,
+  UserLogin,
+} from "../validators/user";
 
 export default class UserController {
   public static async getUsers(ctx: Context) {
@@ -68,7 +73,18 @@ export default class UserController {
   }
 
   public static async updateUser(ctx: Context) {
-    const findUser = await UserService.getUserById(ctx.params.id);
+    const vali = await plainToClass(UpdateUser, ctx.request.body);
+    const errors = await validate(vali, {
+      forbidUnknownValues: true,
+    });
+    if (errors.length > 0) {
+      ctx.body = errors;
+      return;
+    }
+
+    const userId = JwtUtils.getUserId(ctx);
+
+    const findUser = await UserService.getUserById(userId!);
     if (!findUser) {
       ctx.status = 400;
       ctx.body = "user is not exists!";

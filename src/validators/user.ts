@@ -10,6 +10,11 @@ export class CreateUser {
   password?: string;
 }
 
+export class UpdateUser {
+  @Length(0)
+  username?: string;
+}
+
 export class GetDeleteUser {
   @IsNotEmpty()
   id?: string;

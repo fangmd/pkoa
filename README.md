@@ -16,13 +16,7 @@ docker-compose -f docker-compose.test.yml up
 docker-compose -f docker-compose.test.yml up -d
 ```
 
-
-## 其他
-
-
-bcryptjs 加密工具
-
-lodash 非常好用的工具函数库
+## Others
 
 
 log

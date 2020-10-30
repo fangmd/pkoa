@@ -36,8 +36,6 @@ app.use(
   })
 );
 
-// { url: "/user", method: ["POST"] },
-
 //TODO: cors
 
 router.get("/", async (ctx) => {
