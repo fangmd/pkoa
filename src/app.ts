@@ -46,9 +46,17 @@ app.use(router.routes());
 app.use(example.routes());
 app.use(user.routes());
 
-dbInit().then((res) => {
+// dbInit().then((res) => {
+//   app.listen(Config.port);
+//   console.log(`Server running on port ${Config.port}`);
+// });
+
+async function start() {
+  await dbInit();
   app.listen(Config.port);
   console.log(`Server running on port ${Config.port}`);
-});
+}
+
+start();
 
 export default app;
