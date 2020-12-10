@@ -1,4 +1,4 @@
-version: "3.8"
+version: '3.8'
 services:
   mysql1:
     build: ./compose/mysql-service-test
@@ -13,9 +13,22 @@ services:
       MYSQL_USER: test
       DATABASE_PASSWORD: root
     expose:
-      - "3306"
+      - '3306'
     ports:
-      - "3306:3306"
+      - '3306:3306'
+
+  redis1:
+    image: redis
+    container_name: redis1
+    command: redis-server
+    networks:
+      - app-network
+    expose:
+      - '6379'
+    ports:
+      - '6379:6379'
+    volumes:
+      - ./local/redis:/data
 
   api:
     build:
@@ -26,19 +39,23 @@ services:
       - app-network
     depends_on:
       - mysql1
+      - redis1
     links:
       - mysql1
+      - redis1
     ports:
-      - "9090:9090"
+      - '9090:9090'
     volumes:
       - ./src:/app/src
     environment:
+      - NODE_ENV=test
       - DATABASE_HOST=mysql1
       - DATABASE_PORT=3306
-      - NODE_ENV=test
       - DATABASE_PASSWORD=root
       - DATABASE_USER=root
       - DATABASE_DB_NAME=test
+      - REDIS_HOST=redis1
+      - REDIS_PORT=6379
 
 networks:
   app-network:

@@ -3,7 +3,6 @@
  */
 
 import { createConnection } from "typeorm";
-import root from "../utils/root-path";
 import Config from "../config";
 
 export const dbInit = async () => {
@@ -14,10 +13,9 @@ export const dbInit = async () => {
     username: Config.mysql.userName, // 数据库用户名
     password: Config.mysql.password, // 密码
     database: Config.mysql.dbName, // 数据库名
-    // entities: [root() + "/entity/*.ts", root() + "/entity/*.js"], // 引入实体
     entities: [
-      // process.env.entityPath ? process.env.entityPath : "./src/entity/*.ts",
-      '/Users/double/projects/pkoa/src/db/model/*.ts'
+      `${__dirname}/model/**/*.ts`,
+      `${__dirname}/model/**/*.js`,
     ], // 引入实体
     synchronize: true,
     logging: true

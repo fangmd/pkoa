@@ -16,7 +16,7 @@ export interface IConfig {
   }
   redis: {
     host: string
-    port: number
+    port: any
   }
 }
 
