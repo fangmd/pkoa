@@ -1,24 +1,17 @@
-
 /**
- * User 相关操作
- * 1. user CRUD
- * 2. login
+ * @description User 相关操作
  */
 
-import Router from "koa-router";
-import UserController from "../controller/user-controller";
+import Router from 'koa-router'
+import UserController from '../controller/user-controller'
 
-const router = new Router();
+const router = new Router()
 
-// router.get("/users", UserController.getUsers);
-router.get("/user", UserController.getUserById);
-// router.post("/user", UserController.addUser);
-router.put("/user", UserController.updateUser);
-router.delete("/user", UserController.deleteUser);
+router.get('/user', UserController.getUserById)
+router.put('/user', UserController.updateUser)
+router.delete('/user', UserController.deleteUser)
 
+router.post('/login', UserController.userLogin)
+router.post('/register', UserController.addUser)
 
-router.post("/login", UserController.userLogin);
-router.post("/register", UserController.addUser);
-
-
-export default router;
+export default router

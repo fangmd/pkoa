@@ -3,7 +3,7 @@ import { transformAndValidate } from 'class-transformer-validator'
 import { validate, ValidationError } from 'class-validator'
 import { Context } from 'koa'
 import HttpC from '../constants/http-c'
-import { User } from '../entity/user'
+import { User } from '../db/model'
 import UserService from '../service/user-service'
 import HttpResult from '../utils/http-result'
 import JwtUtils from '../utils/jwt-utils'
@@ -27,7 +27,7 @@ export default class UserController {
    * 获取用户信息(自己或者他人)
    */
   public static async getUserById(ctx: Context) {
-    // const vali = await plainToClass(GetDeleteUser, ctx.query);
+    // const vali = plainToClass(GetDeleteUser, ctx.query);
     // const errors = await validate(vali, {
     //   forbidUnknownValues: true,
     // });
@@ -45,13 +45,11 @@ export default class UserController {
         id = userId
       }
     }
-
-    ctx.status = 200
     ctx.body = HttpResult.success(await UserService.getUserById(id))
   }
 
   public static async addUser(ctx: Context) {
-    const vali = await plainToClass(CreateUser, ctx.request.body)
+    const vali = plainToClass(CreateUser, ctx.request.body)
     const errors = await validate(vali, {
       forbidUnknownValues: true,
     })
@@ -74,7 +72,7 @@ export default class UserController {
   }
 
   public static async updateUser(ctx: Context) {
-    const vali = await plainToClass(UpdateUser, ctx.request.body)
+    const vali = plainToClass(UpdateUser, ctx.request.body)
     const errors = await validate(vali, {
       forbidUnknownValues: true,
     })
@@ -101,8 +99,7 @@ export default class UserController {
    * @param ctx Context
    */
   public static async deleteUser(ctx: Context) {
-    console.log(`delete user id: ${ctx.query.id}`);
-    const vali = await plainToClass(GetDeleteUser, ctx.query)
+    const vali = plainToClass(GetDeleteUser, ctx.query)
     const errors = await validate(vali, {
       forbidUnknownValues: true,
     })
@@ -125,7 +122,7 @@ export default class UserController {
    * @param ctx Context
    */
   public static async userLogin(ctx: Context) {
-    const vali = await plainToClass(UserLogin, ctx.request.body)
+    const vali = plainToClass(UserLogin, ctx.request.body)
     const errors = await validate(vali, {
       forbidUnknownValues: true,
     })
@@ -133,15 +130,14 @@ export default class UserController {
       ctx.body = errors
       return
     }
-
-    const { data, error } = await UserService.userLogin(ctx.request.body)
-    if (error) {
-      ctx.body = HttpResult.fail(error)
+    const userInfo = await UserService.findUser(vali.username!, vali.password)
+    if (!userInfo) {
+      ctx.body = HttpResult.fail(HttpC.USER_NOT_EXIST)
       return
     }
     ctx.body = HttpResult.success({
-      username: data?.username,
-      jwt: JwtUtils.sign({ username: data?.username, id: data?.id }),
+      username: userInfo.username,
+      jwt: JwtUtils.sign({ username: userInfo.username, id: userInfo.id }),
     })
   }
 }

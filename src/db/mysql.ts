@@ -1,5 +1,9 @@
+/**
+ * @description 数据库配置，初始化
+ */
+
 import { createConnection } from "typeorm";
-import root from "./root-path";
+import root from "../utils/root-path";
 import Config from "../config";
 
 export const dbInit = async () => {
@@ -13,7 +17,7 @@ export const dbInit = async () => {
     // entities: [root() + "/entity/*.ts", root() + "/entity/*.js"], // 引入实体
     entities: [
       // process.env.entityPath ? process.env.entityPath : "./src/entity/*.ts",
-      '/Users/double/projects/pkoa/src/entity/*.ts'
+      '/Users/double/projects/pkoa/src/db/model/*.ts'
     ], // 引入实体
     synchronize: true,
   });

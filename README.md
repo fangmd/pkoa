@@ -24,7 +24,7 @@ log
 TODO:
 
 - [x] jwt
-- [x] ORM: typerom, mysql2
+- [x] ORM: typeorm, mysql2
 - [ ] redis
 - [x] 请求参数验证 class-validator class-transformer
 - [x] 请求结果封装 `HttpResult`

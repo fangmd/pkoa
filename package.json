@@ -7,9 +7,9 @@
     "serve": "export NODE_ENV=development && nodemon --exec ts-node src/app.ts",
     "start": "tsc && node dist/app.js",
     "build": "tsc",
-    "testVerbose": "export NODE_ENV=test entityPath=/Users/double/projects/pkoa/src/entity/*.ts && jest --runInBand --forceExit --colors --detectOpenHandles --coverage --verbose",
-    "test": "export NODE_ENV=test entityPath=/Users/double/projects/pkoa/src/entity/*.ts && jest --runInBand --forceExit --colors --detectOpenHandles --silent",
-    "testLog": "export NODE_ENV=test entityPath=/Users/double/projects/pkoa/src/entity/*.ts && jest --runInBand --forceExit --colors --detectOpenHandles",
+    "testVerbose": "export NODE_ENV=test && jest --runInBand --forceExit --colors --detectOpenHandles --coverage --verbose",
+    "test": "export NODE_ENV=test && jest --runInBand --forceExit --colors --detectOpenHandles --silent",
+    "testLog": "export NODE_ENV=test && jest --runInBand --forceExit --colors --detectOpenHandles",
     "watch-test": "npm run test -- --watchAll",
     "tmp": "export NODE_ENV=development && ts-node src/tmp.ts"
   },

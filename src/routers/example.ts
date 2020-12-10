@@ -1,28 +1,42 @@
-import Router from "koa-router";
-import getUniqueID from "../utils/snowflake";
+/**
+ * @description example
+ */
 
-const router = new Router();
+import Router from 'koa-router'
+import getUniqueID from '../utils/snowflake'
 
-router.get("/example", async (ctx) => {
+const router = new Router()
+
+router.get('/', async (ctx) => {
   try {
     ctx.body = {
-      msg: "success example23",
-      data: "ping",
-    };
+      msg: 'Hello world!',
+    }
   } catch (e) {
-    console.error(e);
+    console.error(e)
   }
-});
+})
 
-router.get("/example/snowflake", async (ctx) => {
+router.get('/example', async (ctx) => {
   try {
     ctx.body = {
-      msg: "success example23",
+      msg: 'success example23',
+      data: 'ping',
+    }
+  } catch (e) {
+    console.error(e)
+  }
+})
+
+router.get('/example/snowflake', async (ctx) => {
+  try {
+    ctx.body = {
+      msg: 'success example23',
       data: `${getUniqueID()}`,
-    };
+    }
   } catch (e) {
-    console.error(e);
+    console.error(e)
   }
-});
+})
 
-export default router;
+export default router

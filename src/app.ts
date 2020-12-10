@@ -1,8 +1,7 @@
 import Koa from 'koa'
-import Router from 'koa-router'
 import logger from 'koa-logger'
 import Config from './config'
-import { dbInit } from './utils/mysql'
+import { dbInit } from './db/mysql'
 import Bodyparser from 'koa-bodyparser'
 import jwt from 'koa-jwt'
 
@@ -11,10 +10,8 @@ import user from './routers/user'
 import HttpResult from './utils/http-result'
 import HttpC from './constants/http-c'
 import { jwtSecret } from './utils/jwt-utils'
-import root from './utils/root-path'
 
 const app = new Koa()
-const router = new Router()
 
 // 全局错误处理
 // Custom 401 handling (first middleware)
@@ -42,12 +39,8 @@ app.use(
 //TODO: cors
 
 // router start
-router.get('/', async (ctx) => {
-  ctx.body = { msg: 'Hello world!' }
-})
-app.use(router.routes())
-app.use(example.routes())
-app.use(user.routes())
+app.use(example.routes()).use(example.allowedMethods())
+app.use(user.routes()).use(user.allowedMethods())
 // router end
 
 // dbInit().then((res) => {
