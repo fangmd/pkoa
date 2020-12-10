@@ -1,5 +1,4 @@
 import { getRepository, Repository } from 'typeorm'
-import HttpC from '../constants/http-c'
 import { User } from '../db/model'
 import MD5Utils from '../utils/md5'
 import getUniqueID from '../utils/snowflake'

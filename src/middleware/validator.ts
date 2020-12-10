@@ -14,7 +14,7 @@ import HttpResult from '../utils/http-result'
 function genValidator(validationData: any) {
   const retFunc = async (ctx: Context, next: Next) => {
     let vali: any
-    if (ctx.request.method === 'POST') {
+    if (ctx.request.method === 'POST' || ctx.request.method === 'PUT') {
       vali = plainToClass(validationData, ctx.request.body)
     } else if (ctx.request.method === 'GET' || ctx.request.method === 'DELETE') {
       vali = plainToClass(validationData, ctx.request.query)

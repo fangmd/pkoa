@@ -5,7 +5,6 @@ import UserService from '../service/user-service'
 import HttpResult from '../utils/http-result'
 import JwtUtils from '../utils/jwt-utils'
 import MD5Utils from '../utils/md5'
-import getUniqueID from '../utils/snowflake'
 
 export default class UserController {
   /**
