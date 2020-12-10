@@ -28,20 +28,20 @@ describe('routers/user', () => {
     expect(response.body.code).toEqual(HttpC.PARAMS_ERROR)
   })
 
-  // it('register user success', async () => {
-  //   const response = await server.post('/register').send(`username=${userName}&password=${PASSWORD}`)
-  //   userId = response.body.data.id
-  //   expect(response.body.code).toEqual(HttpC.SUCCESS)
-  // })
+  it('register user success', async () => {
+    const response = await server.post('/register').send(`username=${userName}&password=${PASSWORD}`)
+    userId = response.body.data.id
+    expect(response.body.code).toEqual(HttpC.SUCCESS)
+  })
 
-  // it('login user, should be success', async () => {
-  //   const response = await server.post('/login').send(`username=${userName}&password=${PASSWORD}`)
-  //   jwt = response.body.data.jwt
-  //   expect(response.body.code).toEqual(HttpC.SUCCESS)
-  // })
+  it('login user, should be success', async () => {
+    const response = await server.post('/login').send(`username=${userName}&password=${PASSWORD}`)
+    jwt = response.body.data.jwt
+    expect(response.body.code).toEqual(HttpC.SUCCESS)
+  })
 
-  // it('delete user success, should be success', async () => {
-  //   const response = await server.delete(`/user?id=${userId}`).set('Authorization', `Bearer ${jwt}`)
-  //   expect(response.body.code).toEqual(HttpC.SUCCESS)
-  // })
+  it('delete user success, should be success', async () => {
+    const response = await server.delete(`/user?id=${userId}`).set('Authorization', `Bearer ${jwt}`)
+    expect(response.body.code).toEqual(HttpC.SUCCESS)
+  })
 })
