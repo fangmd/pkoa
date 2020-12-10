@@ -24,4 +24,5 @@ module.exports = {
   // testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(js|ts)x?$', // __tests__ 下的所有文件
   testRegex: '(\\.|/)(test|spec)\\.(js|ts)x?$',
   testPathIgnorePatterns: ['/node_modules/', '/build/', '/coverage/'],
+  testTimeout: 5000
 }
