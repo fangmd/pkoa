@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryColumn, Unique } from 'typeorm'
 import BaseModel from './base-model'
 
 @Entity()
-@Unique(['username'])
+@Unique(['username', 'id'])
 export class User extends BaseModel {
   @PrimaryColumn()
   id!: string

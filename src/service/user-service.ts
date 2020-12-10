@@ -2,6 +2,7 @@ import { getRepository, Repository } from 'typeorm'
 import HttpC from '../constants/http-c'
 import { User } from '../db/model'
 import MD5Utils from '../utils/md5'
+import getUniqueID from '../utils/snowflake'
 
 export default class UserService {
   private static repositoryUser(): Repository<User> {
@@ -23,11 +24,12 @@ export default class UserService {
   }
 
   public static async addUser(user: User) {
+    user.id = `${getUniqueID()}`
     const findUser = await this.getUserByName(user.username)
     if (findUser) {
-      return { error: HttpC.USER_NAME_IS_TAKEN }
+      return
     }
-    return { data: await this.repositoryUser().save(user) }
+    return await this.repositoryUser().save(user)
   }
 
   public static async addAndUpdateUser(user: User) {

@@ -21,7 +21,11 @@ export default class UserController {
         id = userId
       }
     }
-    ctx.body = HttpResult.success(await UserService.getUserById(id))
+    const user = await UserService.getUserById(id)
+    if (!user) {
+      ctx.body = HttpResult.fail(HttpC.USER_NOT_EXIST)
+    }
+    ctx.body = HttpResult.success(user)
   }
 
   /**
@@ -30,13 +34,12 @@ export default class UserController {
    */
   public static async register(ctx: Context) {
     const user: User = ctx.request.body
-    user.id = `${getUniqueID()}`
     user.password = MD5Utils.hashStr(user.password)
-    const { error, data } = await UserService.addUser(user)
-    if (error) {
-      ctx.body = HttpResult.fail(error)
+    const userDB = await UserService.addUser(user)
+    if (!userDB) {
+      ctx.body = HttpResult.fail(HttpC.CREATE_USER_FAIL)
     } else {
-      ctx.body = HttpResult.success({ username: data?.username, id: data?.id })
+      ctx.body = HttpResult.success({ username: userDB.username, id: userDB.id })
     }
   }
 

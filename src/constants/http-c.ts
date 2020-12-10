@@ -46,4 +46,9 @@ export default class HttpC {
    * 服务错误
    */
   public static readonly SERVER_ERROR = 2008
+
+  /**
+   * 创建用户失败
+   */
+  public static readonly CREATE_USER_FAIL = 2009
 }
