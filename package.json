@@ -8,9 +8,9 @@
     "start": "tsc && node dist/app.js",
     "prd": "tsc && export NODE_ENV=production && pm2 start pm2.config.json",
     "build": "tsc",
-    "testVerbose": "export NODE_ENV=test && jest --runInBand --forceExit --colors --detectOpenHandles --coverage --verbose",
-    "test": "export NODE_ENV=test && jest --runInBand --forceExit --colors --detectOpenHandles --silent",
-    "testLog": "export NODE_ENV=test && jest --runInBand --forceExit --colors --detectOpenHandles",
+    "testVerbose": "export NODE_ENV=uniTest && jest --runInBand --forceExit --colors --detectOpenHandles --coverage --verbose",
+    "test": "export NODE_ENV=uniTest && jest --runInBand --forceExit --colors --detectOpenHandles --silent",
+    "testLog": "export NODE_ENV=uniTest && jest --runInBand --forceExit --colors --detectOpenHandles",
     "watch-test": "npm run test -- --watchAll",
     "tmp": "export NODE_ENV=development && ts-node src/tmp.ts"
   },

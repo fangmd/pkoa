@@ -4,9 +4,6 @@
 
 const ENV = process.env.NODE_ENV!
 
-const isDev = ENV === 'development'
-// export { isDev }
-
 const envs = {
   isDev: ENV === 'development',
   isNotDev: ENV !== 'development',
@@ -14,6 +11,7 @@ const envs = {
   isNotProd: ENV !== 'production',
   isTest: ENV === 'test',
   isNotTest: ENV !== 'test',
+  isUniTest: ENV === 'uniTest',
 }
 
 export = envs

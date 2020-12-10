@@ -9,7 +9,7 @@ import { jwtSecret } from './utils/jwt-utils'
 import globalErrorHandle from './middleware/global-error'
 import example from './routers/example'
 import user from './routers/user'
-import { isTest } from './utils/env'
+import { isUniTest } from './utils/env'
 import { Server } from 'http'
 
 const app = new Koa()
@@ -39,7 +39,7 @@ app.use(user.routes()).use(user.allowedMethods())
 // start()
 
 let serverInner: Server
-if (isTest) {
+if (isUniTest) {
   serverInner = app.listen(Config.port)
 } else {
   dbInit().then((res) => {

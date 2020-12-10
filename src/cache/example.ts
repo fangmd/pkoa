@@ -13,12 +13,12 @@ const KEY_PREFIX = 'pkoa:example:'
  */
 async function getHomeCacheData(): Promise<Example | undefined> {
   const key = KEY_PREFIX
-  // const cacheResult = await get(key)
-  // if (cacheResult) {
-  //   return cacheResult as Example
-  // }
+  const cacheResult = await get(key)
+  if (cacheResult) {
+    return cacheResult as Example
+  }
   const dbResult = await ExampleService.getHome()
-  // set(key, dbResult, 10)
+  set(key, dbResult, 10)
   return dbResult
 }
 
