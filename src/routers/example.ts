@@ -3,14 +3,19 @@
  */
 
 import Router from 'koa-router'
+import { getHomeCacheData } from '../cache/example'
+import { ExampleService } from '../service/example-service'
 import getUniqueID from '../utils/snowflake'
 
 const router = new Router()
 
 router.get('/', async (ctx) => {
   try {
+    const data = await getHomeCacheData()
+    await ExampleService.addHomeCnt();
     ctx.body = {
       msg: 'Hello world!',
+      cnt: data?.cnt,
     }
   } catch (e) {
     console.error(e)

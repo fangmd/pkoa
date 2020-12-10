@@ -9,4 +9,8 @@ export const prodConf: IConfig = {
     password: process.env.DATABASE_PASSWORD || 'root',
     dbName: process.env.DATABASE_DB_NAME || 'koa',
   },
+  redis: {
+    host: '127.0.0.1',
+    port: 6379
+  }
 }

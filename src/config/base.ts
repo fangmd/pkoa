@@ -14,6 +14,10 @@ export interface IConfig {
     password: string
     dbName: string
   }
+  redis: {
+    host: string
+    port: number
+  }
 }
 
 // mode: prod

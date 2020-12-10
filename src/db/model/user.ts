@@ -8,8 +8,9 @@ export class User extends BaseModel {
   id!: string
   @Column({
     length: 30,
+    comment: '用户名',
   })
   username!: string
-  @Column()
+  @Column({ comment: '密码' })
   password!: string
 }

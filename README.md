@@ -25,7 +25,7 @@ TODO:
 
 - [x] jwt
 - [x] ORM: typeorm, mysql2
-- [ ] redis
+- [x] redis
 - [x] 请求参数验证 class-validator class-transformer
 - [x] 请求结果封装 `HttpResult`
 - [x] 部署: Aliyun 测试服务器 
