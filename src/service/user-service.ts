@@ -44,10 +44,7 @@ export default class UserService {
    * @param password 用户密码
    */
   public static async findUser(username: string, password?: string) {
-    let findOpt: any = {}
-    if (username) {
-      findOpt.username = username
-    }
+    let findOpt: any = { username }
     if (password) {
       findOpt.password = MD5Utils.hashStr(password)
     }

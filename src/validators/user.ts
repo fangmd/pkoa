@@ -1,7 +1,7 @@
-import { IsNotEmpty, Length, MinLength } from 'class-validator'
+import { IsNotEmpty, MinLength } from 'class-validator'
 
 export class CreateUser {
-  @Length(0)
+  @IsNotEmpty()
   username?: string
 
   @MinLength(8, {
@@ -11,7 +11,7 @@ export class CreateUser {
 }
 
 export class UpdateUser {
-  @Length(0)
+  @IsNotEmpty()
   username?: string
 }
 
@@ -21,7 +21,7 @@ export class GetDeleteUser {
 }
 
 export class UserLogin {
-  @Length(0)
+  @IsNotEmpty()
   username?: string
 
   @MinLength(8, {

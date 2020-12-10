@@ -5,29 +5,15 @@ import { dbInit } from './db/mysql'
 import Bodyparser from 'koa-bodyparser'
 import jwt from 'koa-jwt'
 
+import { jwtSecret } from './utils/jwt-utils'
+import globalErrorHandle from './middleware/global-error'
 import example from './routers/example'
 import user from './routers/user'
-import HttpResult from './utils/http-result'
-import HttpC from './constants/http-c'
-import { jwtSecret } from './utils/jwt-utils'
 
 const app = new Koa()
 
 // 全局错误处理
-// Custom 401 handling (first middleware)
-app.use(async (ctx, next) => {
-  try {
-    return next()
-  } catch (err) {
-    if (err.status === 401) {
-      ctx.status = 401
-      ctx.body = HttpResult.fail(HttpC.AUTH_ERROR)
-    } else {
-      throw err
-    }
-  }
-})
-
+app.use(globalErrorHandle)
 app.use(logger())
 app.use(Bodyparser())
 app.use(

@@ -20,6 +20,7 @@ export const dbInit = async () => {
       '/Users/double/projects/pkoa/src/db/model/*.ts'
     ], // 引入实体
     synchronize: true,
+    logging: true
   });
   console.log(`数据库连接结果 ${ret}`);
 };

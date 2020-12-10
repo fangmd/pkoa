@@ -1,3 +1,7 @@
+/**
+ * @description 请求结果
+ */
+
 import HttpC from '../constants/http-c'
 import HttpMsg from '../constants/http-msg'
 /**
@@ -8,11 +12,13 @@ export default class HttpResult {
   code: number
   msg: string
   data: any
+  error: any
 
-  constructor(code: number, msg: string, data?: any) {
+  constructor(code: number, msg: string, data?: any, error?: any) {
     this.code = code
     this.msg = msg
     this.data = data
+    this.error = error
   }
 
   // Create Success HttpResult
@@ -32,7 +38,7 @@ export default class HttpResult {
 
   // 参数错误
   static paramsError(errors: import('class-validator').ValidationError[]): any {
-    return new HttpResult(HttpC.PARAMS_ERROR, 'Params Error', errors)
+    return new HttpResult(HttpC.PARAMS_ERROR, 'Params Error', {}, errors)
   }
 
   public toString(): string {

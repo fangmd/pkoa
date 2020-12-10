@@ -40,5 +40,10 @@ export default class HttpC {
   /**
    * 修改用户信息失败
    */
-  public static readonly EDIT_USER_FAIL = 2006
+  public static readonly EDIT_USER_FAIL = 2007
+
+  /**
+   * 服务错误
+   */
+  public static readonly SERVER_ERROR = 2008
 }
