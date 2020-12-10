@@ -5,6 +5,6 @@ export default class AliyunSMS {
    * @param content  内容
    */
   public static async sendSMS(phone: string, content: string) {
-    return 1234;
+    return 1234
   }
 }

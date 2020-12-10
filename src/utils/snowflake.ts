@@ -1,4 +1,4 @@
-import SnowFlake from "./snowflake-lib";
+import SnowFlake from './snowflake-lib'
 
 // const uid = new UniqueID({
 //   returnNumber: true,
@@ -13,10 +13,10 @@ import SnowFlake from "./snowflake-lib";
 
 // export default getUniqueID;
 
-const idWorker = new SnowFlake(1n, 1n);
+const idWorker = new SnowFlake(1n, 1n)
 
 const getUniqueID = (): string | bigint => {
-  return idWorker.nextId();
-};
+  return idWorker.nextId()
+}
 
-export default getUniqueID;
+export default getUniqueID

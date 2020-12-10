@@ -9,12 +9,7 @@ import HttpResult from '../utils/http-result'
 import JwtUtils from '../utils/jwt-utils'
 import MD5Utils from '../utils/md5'
 import getUniqueID from '../utils/snowflake'
-import {
-  CreateUser,
-  GetDeleteUser,
-  UpdateUser,
-  UserLogin,
-} from '../validators/user'
+import { CreateUser, GetDeleteUser, UpdateUser, UserLogin } from '../validators/user'
 
 export default class UserController {
   /**
@@ -79,9 +74,7 @@ export default class UserController {
     if (!findUser) {
       ctx.body = HttpResult.fail(HttpC.USER_NOT_EXIST)
     } else {
-      await UserService.addAndUpdateUser(
-        Object.assign(findUser, ctx.request.body)
-      )
+      await UserService.addAndUpdateUser(Object.assign(findUser, ctx.request.body))
       ctx.body = HttpResult.success()
     }
   }

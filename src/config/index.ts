@@ -1,18 +1,18 @@
-import { IConfig } from "./base";
-import { devConf } from "./dev";
-import { prodConf } from "./prod";
-import { testConf } from "./test";
+import { IConfig } from './base'
+import { devConf } from './dev'
+import { prodConf } from './prod'
+import { testConf } from './test'
 
-let config: IConfig;
+let config: IConfig
 
-if (process.env.NODE_ENV === "test") {
-  config = testConf;
-} else if (process.env.NODE_ENV === "prod") {
-  config = prodConf;
+if (process.env.NODE_ENV === 'test') {
+  config = testConf
+} else if (process.env.NODE_ENV === 'prod') {
+  config = prodConf
 } else {
-  config = devConf;
+  config = devConf
 }
 
-console.log(config);
+console.log(config)
 
-export default config;
+export default config
