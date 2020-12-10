@@ -3,10 +3,12 @@
  */
 
 import HttpC from '../../src/constants/http-c'
+import { dbInit } from '../../src/db/mysql'
 import server, { serverInner } from '../_server'
 
 beforeAll(async () => {
-  await new Promise((resolve) => setTimeout(() => resolve(), 300)) // 等待数据库初始化成功
+  // await new Promise((resolve) => setTimeout(() => resolve(), 300)) // 等待数据库初始化成功
+  await dbInit()
 })
 
 afterAll(async (done) => {

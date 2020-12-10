@@ -1,3 +1,4 @@
+import { isProd, isTest } from '../utils/env'
 import { IConfig } from './base'
 import { devConf } from './dev'
 import { prodConf } from './prod'
@@ -5,9 +6,9 @@ import { testConf } from './test'
 
 let config: IConfig
 
-if (process.env.NODE_ENV === 'test') {
+if (isTest) {
   config = testConf
-} else if (process.env.NODE_ENV === 'prod') {
+} else if (isProd) {
   config = prodConf
 } else {
   config = devConf

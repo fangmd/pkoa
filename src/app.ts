@@ -9,6 +9,8 @@ import { jwtSecret } from './utils/jwt-utils'
 import globalErrorHandle from './middleware/global-error'
 import example from './routers/example'
 import user from './routers/user'
+import { isTest } from './utils/env'
+import { Server } from 'http'
 
 const app = new Koa()
 
@@ -29,19 +31,22 @@ app.use(example.routes()).use(example.allowedMethods())
 app.use(user.routes()).use(user.allowedMethods())
 // router end
 
-// dbInit().then((res) => {
-//   app.listen(Config.port);
-//   console.log(`Server running on port ${Config.port}`);
-// });
-
 // async function start() {
 //   await dbInit()
 //   serverInner = app.listen(Config.port)
 // }
 
 // start()
-const serverInner = app.listen(Config.port)
-dbInit()
+
+let serverInner: Server
+if (isTest) {
+  serverInner = app.listen(Config.port)
+} else {
+  dbInit().then((res) => {
+    app.listen(Config.port)
+    console.log(`Server running on port ${Config.port}`)
+  })
+}
 
 export { serverInner }
 export default app

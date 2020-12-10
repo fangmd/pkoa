@@ -26,3 +26,5 @@ pnpm-debug.log*
 yarn.lock
 
 local
+
+logs

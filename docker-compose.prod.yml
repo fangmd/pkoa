@@ -34,7 +34,7 @@ services:
     environment:
       - DATABASE_HOST=mysql1
       - DATABASE_PORT=3306
-      - NODE_ENV=test
+      - NODE_ENV=production
       - DATABASE_PASSWORD=root
       - DATABASE_USER=root
       - DATABASE_DB_NAME=test
