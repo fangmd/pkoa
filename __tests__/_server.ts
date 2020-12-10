@@ -6,6 +6,9 @@ import request from 'supertest'
 import app, { serverInner } from '../src/app'
 import { redisClient } from '../src/cache/redis'
 
+/**
+ * 关闭 redis 连接
+ */
 async function shutdownRedis() {
   await new Promise((resolve) => {
     redisClient.quit(() => {
@@ -17,5 +20,14 @@ async function shutdownRedis() {
   //   await new Promise((resolve) => setImmediate(resolve))
 }
 
-export { serverInner, shutdownRedis }
+/**
+ * 安全关闭 测试环境
+ */
+async function safeShutdown() {
+  await shutdownRedis()
+  serverInner.close() // CLOSE THE SERVER CONNECTION
+  await new Promise((resolve) => setTimeout(() => resolve(), 500)) // avoid jest open handle error
+}
+
+export { safeShutdown }
 export default request(app.callback())

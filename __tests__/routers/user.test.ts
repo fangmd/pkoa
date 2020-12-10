@@ -4,16 +4,14 @@
 
 import HttpC from '../../src/constants/http-c'
 import { dbInit } from '../../src/db/mysql'
-import server, { serverInner, shutdownRedis } from '../_server'
+import server, { safeShutdown } from '../_server'
 
 beforeAll(async () => {
   await dbInit()
 })
 
 afterAll(async (done) => {
-  await shutdownRedis()
-  serverInner.close() // CLOSE THE SERVER CONNECTION
-  await new Promise((resolve) => setTimeout(() => resolve(), 500)) // avoid jest open handle error
+  await safeShutdown()
   done()
 })
 
