@@ -17,12 +17,6 @@ import {
 } from '../validators/user'
 
 export default class UserController {
-  public static async getUsers(ctx: Context) {
-    const users: User[] = await UserService.getUsers()
-    ctx.status = 200
-    ctx.body = HttpResult.success(users)
-  }
-
   /**
    * 获取用户信息(自己或者他人)
    */
@@ -48,7 +42,7 @@ export default class UserController {
     ctx.body = HttpResult.success(await UserService.getUserById(id))
   }
 
-  public static async addUser(ctx: Context) {
+  public static async register(ctx: Context) {
     const vali = plainToClass(CreateUser, ctx.request.body)
     const errors = await validate(vali, {
       forbidUnknownValues: true,
@@ -62,8 +56,6 @@ export default class UserController {
     user.id = `${getUniqueID()}`
     user.password = MD5Utils.hashStr(user.password)
     const { error, data } = await UserService.addUser(user)
-
-    ctx.status = 200
     if (error) {
       ctx.body = HttpResult.fail(error)
     } else {
@@ -85,7 +77,7 @@ export default class UserController {
 
     const findUser = await UserService.getUserById(userId!)
     if (!findUser) {
-      ctx.body = 'user is not exists!'
+      ctx.body = HttpResult.fail(HttpC.USER_NOT_EXIST)
     } else {
       await UserService.addAndUpdateUser(
         Object.assign(findUser, ctx.request.body)

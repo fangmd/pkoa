@@ -1,4 +1,3 @@
-// import { IConfig } from "./base";
 import { IConfig } from "./base";
 
 /**
