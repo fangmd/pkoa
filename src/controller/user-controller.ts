@@ -1,25 +1,26 @@
-import { plainToClass } from "class-transformer";
-import { transformAndValidate } from "class-transformer-validator";
-import { validate, ValidationError } from "class-validator";
-import { Context } from "koa";
-import { User } from "../entity/user";
-import UserService from "../service/user-service";
-import HttpResult from "../utils/http-result";
-import JwtUtils from "../utils/jwt-utils";
-import MD5Utils from "../utils/md5";
-import getUniqueID from "../utils/snowflake";
+import { plainToClass } from 'class-transformer'
+import { transformAndValidate } from 'class-transformer-validator'
+import { validate, ValidationError } from 'class-validator'
+import { Context } from 'koa'
+import HttpC from '../constants/http-c'
+import { User } from '../entity/user'
+import UserService from '../service/user-service'
+import HttpResult from '../utils/http-result'
+import JwtUtils from '../utils/jwt-utils'
+import MD5Utils from '../utils/md5'
+import getUniqueID from '../utils/snowflake'
 import {
   CreateUser,
   GetDeleteUser,
   UpdateUser,
   UserLogin,
-} from "../validators/user";
+} from '../validators/user'
 
 export default class UserController {
   public static async getUsers(ctx: Context) {
-    const users: User[] = await UserService.getUsers();
-    ctx.status = 200;
-    ctx.body = HttpResult.success(users);
+    const users: User[] = await UserService.getUsers()
+    ctx.status = 200
+    ctx.body = HttpResult.success(users)
   }
 
   /**
@@ -35,107 +36,112 @@ export default class UserController {
     //   return;
     // }
 
-    let id;
+    let id
     if (ctx.query.id) {
-      id = ctx.query.id;
+      id = ctx.query.id
     } else {
-      const userId = JwtUtils.getUserId(ctx);
+      const userId = JwtUtils.getUserId(ctx)
       if (userId) {
-        id = userId;
+        id = userId
       }
     }
 
-    ctx.status = 200;
-    ctx.body = HttpResult.success(await UserService.getUserById(id));
+    ctx.status = 200
+    ctx.body = HttpResult.success(await UserService.getUserById(id))
   }
 
   public static async addUser(ctx: Context) {
-    const vali = await plainToClass(CreateUser, ctx.request.body);
+    const vali = await plainToClass(CreateUser, ctx.request.body)
     const errors = await validate(vali, {
       forbidUnknownValues: true,
-    });
+    })
     if (errors.length > 0) {
-      ctx.body = errors;
-      return;
+      ctx.body = HttpResult.paramsError(errors)
+      return
     }
 
-    const user: User = ctx.request.body;
-    user.id = `${getUniqueID()}`;
-    user.password = MD5Utils.hashStr(user.password);
-    const { error, data } = await UserService.addUser(user);
+    const user: User = ctx.request.body
+    user.id = `${getUniqueID()}`
+    user.password = MD5Utils.hashStr(user.password)
+    const { error, data } = await UserService.addUser(user)
 
-    ctx.status = 200;
+    ctx.status = 200
     if (error) {
-      ctx.body = HttpResult.fail(error);
+      ctx.body = HttpResult.fail(error)
     } else {
-      ctx.body = HttpResult.success({ username: data?.username });
+      ctx.body = HttpResult.success({ username: data?.username, id: data?.id })
     }
   }
 
   public static async updateUser(ctx: Context) {
-    const vali = await plainToClass(UpdateUser, ctx.request.body);
+    const vali = await plainToClass(UpdateUser, ctx.request.body)
     const errors = await validate(vali, {
       forbidUnknownValues: true,
-    });
+    })
     if (errors.length > 0) {
-      ctx.body = errors;
-      return;
+      ctx.body = errors
+      return
     }
 
-    const userId = JwtUtils.getUserId(ctx);
+    const userId = JwtUtils.getUserId(ctx)
 
-    const findUser = await UserService.getUserById(userId!);
+    const findUser = await UserService.getUserById(userId!)
     if (!findUser) {
-      ctx.status = 400;
-      ctx.body = "user is not exists!";
+      ctx.body = 'user is not exists!'
     } else {
-      ctx.status = 200;
       await UserService.addAndUpdateUser(
         Object.assign(findUser, ctx.request.body)
-      );
-      ctx.body = HttpResult.success();
+      )
+      ctx.body = HttpResult.success()
     }
   }
 
+  /**
+   * 删除用户
+   * @param ctx Context
+   */
   public static async deleteUser(ctx: Context) {
-    const vali = await plainToClass(GetDeleteUser, ctx.query);
+    console.log(`delete user id: ${ctx.query.id}`);
+    const vali = await plainToClass(GetDeleteUser, ctx.query)
     const errors = await validate(vali, {
       forbidUnknownValues: true,
-    });
+    })
     if (errors.length > 0) {
-      ctx.body = errors;
-      return;
+      ctx.body = errors
+      return
     }
 
-    const findUser = await UserService.getUserById(ctx.query.id);
+    const findUser = await UserService.getUserById(ctx.query.id)
     if (!findUser) {
-      ctx.status = 400;
-      ctx.body = "user is not exists!";
+      ctx.body = HttpResult.fail(HttpC.DELETE_USER_FAIL)
     } else {
-      ctx.status = 200;
-      const user: User = await UserService.deleteUser(findUser);
-      ctx.body = HttpResult.success();
+      const user: User = await UserService.deleteUser(findUser)
+      ctx.body = HttpResult.success()
     }
   }
 
+  /**
+   * 用户登录
+   * @param ctx Context
+   */
   public static async userLogin(ctx: Context) {
-    const vali = await plainToClass(UserLogin, ctx.request.body);
+    const vali = await plainToClass(UserLogin, ctx.request.body)
     const errors = await validate(vali, {
       forbidUnknownValues: true,
-    });
+    })
     if (errors.length > 0) {
-      ctx.body = errors;
-      return;
+      ctx.body = errors
+      return
     }
 
-    const { data, error } = await UserService.userLogin(ctx.request.body);
+    const { data, error } = await UserService.userLogin(ctx.request.body)
     if (error) {
-      ctx.body = HttpResult.fail(error);
-      return;
+      ctx.body = HttpResult.fail(error)
+      return
     }
     ctx.body = HttpResult.success({
       username: data?.username,
       jwt: JwtUtils.sign({ username: data?.username, id: data?.id }),
-    });
+    })
   }
 }

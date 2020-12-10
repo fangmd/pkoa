@@ -11,6 +11,8 @@ export default class HttpMsg {
     [HttpC.PWD_ERROR, "密码错误"],
     [HttpC.USER_NOT_EXIST, "用户不存在"],
     [HttpC.USER_NAME_IS_TAKEN, "用户名已经被使用"],
+    [HttpC.DELETE_USER_FAIL, "用户不存在"],
+    
     
     // { key: HttpC.SUCCESS, value: "成功" },
     // { key: HttpC.AUTH_ERROR, value: "未登陆" },

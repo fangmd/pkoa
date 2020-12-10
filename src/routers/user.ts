@@ -14,7 +14,7 @@ const router = new Router();
 router.get("/user", UserController.getUserById);
 // router.post("/user", UserController.addUser);
 router.put("/user", UserController.updateUser);
-// router.delete("/user", UserController.deleteUser);
+router.delete("/user", UserController.deleteUser);
 
 
 router.post("/login", UserController.userLogin);

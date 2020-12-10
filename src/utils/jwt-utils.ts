@@ -5,6 +5,7 @@ export const jwtSecret = "shared-secret";
 
 export default class JwtUtils {
   /**
+   * 获取 jwt
    * 签名
    */
   public static sign(data: any) {

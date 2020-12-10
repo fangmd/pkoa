@@ -30,6 +30,11 @@ export default class HttpResult {
     return new HttpResult(code, HttpMsg.getMsg(code));
   }
 
+  // 参数错误
+  static paramsError(errors: import("class-validator").ValidationError[]): any {
+    return new HttpResult(HttpC.PARAMS_ERROR, "Params Error", errors);
+  }
+
   public toString(): string {
     return `${this.code}`;
   }

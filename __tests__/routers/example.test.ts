@@ -1,17 +1,21 @@
-import app from "../../src/app";
-import request from "supertest";
-// require("mysql2/node_modules/iconv-lite").encodingExists("foo");
+import server, { serverInner } from '../_server'
 
-// afterEach((done) => {
-//   app.close();
-//   done();
-// });
 
-describe("routers/example", () => {
-  it("should success", async () => {
-    const response = await request(app.callback()).get("/example");
-    expect(response.status).toEqual(200);
-    // expect(response.type).toEqual("application/json");
-    // expect(response.body.data).toEqual("ping");
-  });
-});
+
+afterAll(async (done) => {
+  serverInner.close() // CLOSE THE SERVER CONNECTION
+  await new Promise((resolve) => setTimeout(() => resolve(), 500)) // avoid jest open handle error
+  done()
+})
+
+describe('routers/example', () => {
+  it('should success', async () => {
+    try {
+      const response = await server.get('/example')
+      expect(response.status).toEqual(200)
+      expect(response.body.data).toEqual('ping')
+    } catch (e) {
+      console.error(e.message, e.stack)
+    }
+  })
+})

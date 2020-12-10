@@ -14,6 +14,5 @@ if (process.env.NODE_ENV === "test") {
 }
 
 console.log(config);
-console.log(process.env.NODE_ENV);
 
 export default config;
