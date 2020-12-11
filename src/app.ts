@@ -4,6 +4,7 @@ import Config from './config'
 import { dbInit } from './db/mysql'
 import Bodyparser from 'koa-bodyparser'
 import jwt from 'koa-jwt'
+import cors from '@koa/cors'
 
 import { jwtSecret } from './utils/jwt-utils'
 import globalErrorHandle from './middleware/global-error'
@@ -14,29 +15,22 @@ import { Server } from 'http'
 
 const app = new Koa()
 
-// 全局错误处理
-app.use(globalErrorHandle)
+// middleware start
+app.use(globalErrorHandle) // 全局错误处理
 app.use(logger())
+app.use(cors())
 app.use(Bodyparser())
 app.use(
   jwt({ secret: jwtSecret }).unless({
     path: [/^\/public/, /^\/example/, '/login', '/register', '/'],
   })
 )
-
-//TODO: cors
+// middleware end
 
 // router start
 app.use(example.routes()).use(example.allowedMethods())
 app.use(user.routes()).use(user.allowedMethods())
 // router end
-
-// async function start() {
-//   await dbInit()
-//   serverInner = app.listen(Config.port)
-// }
-
-// start()
 
 let serverInner: Server
 if (isUniTest) {

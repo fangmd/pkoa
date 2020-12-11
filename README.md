@@ -30,4 +30,5 @@ TODO:
 - [x] 请求结果封装 `HttpResult`
 - [x] 部署: Aliyun 测试服务器 
 
+在 docker 中运行的 nodejs 如何查看 log
 sms 验证功能
