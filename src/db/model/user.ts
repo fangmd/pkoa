@@ -13,4 +13,6 @@ export class User extends BaseModel {
   username!: string
   @Column({ comment: '密码' })
   password!: string
+  @Column({ comment: '昵称', nullable: true })
+  nickname!: string
 }
