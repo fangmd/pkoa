@@ -26,4 +26,5 @@ export const dbInit = async () => {
   // await connection.runMigrations()
 
   console.log(`数据库连接结果 ${connection}`)
+  return connection
 }
