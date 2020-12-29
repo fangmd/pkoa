@@ -5,6 +5,7 @@ import { dbInit } from './db/mysql'
 import Bodyparser from 'koa-bodyparser'
 import jwt from 'koa-jwt'
 import cors from '@koa/cors'
+import { accessLogger, systemLogger } from './utils/logger'
 
 import { jwtSecret } from './utils/jwt-utils'
 import globalErrorHandle from './middleware/global-error'
@@ -18,6 +19,7 @@ const app = new Koa()
 // middleware start
 app.use(globalErrorHandle) // 全局错误处理
 app.use(logger())
+app.use(accessLogger)
 app.use(cors())
 app.use(Bodyparser())
 app.use(
@@ -30,6 +32,11 @@ app.use(
 // router start
 app.use(example.routes()).use(example.allowedMethods())
 app.use(user.routes()).use(user.allowedMethods())
+
+app.on('error', function (err, ctx) {
+  console.log(err)
+  systemLogger.error('server error', err, ctx)
+})
 // router end
 
 let serverInner: Server

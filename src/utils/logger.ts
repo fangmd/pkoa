@@ -1,26 +1,3 @@
-
-
-# 基本设置
-
-koa-logger
-
-```
-npm install koa-logger
-
-npm install @types/koa-logger --save-dev
-```
-
-# logger 打印到文件
-
-```
-npm i koa-log4
-
-npm install @types/koa-log4 --save-dev
-```
-
-`logger.ts`
-
-```js
 /**
  * @description koa-log4 配置
  */
@@ -64,4 +41,3 @@ export const accessLogger = log4js.koaLogger(log4js.getLogger('access'))
  * 记录所有应用级别的日志
  */
 export const systemLogger = log4js.getLogger('app')
-```
