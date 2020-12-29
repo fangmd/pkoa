@@ -16,7 +16,7 @@ pnpm-debug.log*
 
 # Editor directories and files
 .idea
-.vscode
+# .vscode
 *.suo
 *.ntvs*
 *.njsproj
@@ -28,3 +28,9 @@ yarn.lock
 local
 
 logs
+
+# 环境变量，敏感数据
+.env.development
+.env.production
+# db
+ormconfig.js

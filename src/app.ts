@@ -1,3 +1,5 @@
+import { initEnv } from './env'
+initEnv()
 import Koa from 'koa'
 import logger from 'koa-logger'
 import Config from './config'

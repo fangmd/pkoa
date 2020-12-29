@@ -1,7 +1,6 @@
 export interface IConfig {
   // 监听端口
   port: number
-  // mongodb配置
   // mongodb: {
   //   host: string;
   //   port: number;

@@ -1,5 +1,6 @@
 /**
  * 连接本地 mysql， 只用来生成 migration
+ * 只在本地留存
  */
 module.exports = {
   type: 'mysql',

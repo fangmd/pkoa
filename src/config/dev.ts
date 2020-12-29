@@ -6,11 +6,11 @@ import { IConfig } from './base'
 export const devConf: IConfig = {
   port: 9090,
   mysql: {
-    host: '0.0.0.0',
-    port: '3306',
-    userName: 'root',
-    password: 'double',
-    dbName: 'koa',
+    host: process.env.DATABASE_HOST || '0.0.0.0',
+    port: process.env.DATABASE_PORT || '3306',
+    userName: process.env.DATABASE_USER || 'root',
+    password: process.env.DATABASE_PASSWORD || 'root',
+    dbName: process.env.DATABASE_DB_NAME || 'koa',
   },
   redis: {
     host: '127.0.0.1',
