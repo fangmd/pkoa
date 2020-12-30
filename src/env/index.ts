@@ -4,6 +4,11 @@
 import dotenv from 'dotenv'
 
 export function initEnv() {
-  dotenv.config({ path: '.env.' + process.env.NODE_ENV })
-  console.log(`init dotenv`)
+  if (process.env.NODE_ENV === 'uniTest') {
+    dotenv.config({ path: '.env.development' })
+  } else {
+    dotenv.config({ path: '.env.' + process.env.NODE_ENV })
+  }
+
+  console.log(`init dotenv ${process.env.NODE_ENV}`)
 }

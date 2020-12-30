@@ -3,11 +3,10 @@
  */
 
 import HttpC from '../../src/constants/http-c'
-import { dbInit } from '../../src/db/mysql'
-import server, { safeShutdown } from '../_server'
+import server, { safeShutdown, initAll } from '../_server'
 
 beforeAll(async () => {
-  await dbInit()
+  await initAll()
 })
 
 afterAll(async (done) => {

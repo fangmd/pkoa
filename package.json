@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "serve": "export NODE_ENV=development && nodemon --exec ts-node src/app.ts",
-    "start": "tsc && node dist/app.js",
+    "start": "export NODE_ENV=production && tsc && node dist/app.js",
     "prd": "tsc && export NODE_ENV=production && pm2 start pm2.config.json",
     "build": "tsc",
     "testVerbose": "export NODE_ENV=uniTest && jest --runInBand --forceExit --colors --detectOpenHandles --coverage --verbose",

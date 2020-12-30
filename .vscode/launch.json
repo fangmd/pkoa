@@ -20,7 +20,10 @@
             "args": [
                 "${workspaceRoot}/src/app.ts"
             ],
-            "env": { "TS_NODE_PROJECT": "tsconfig.json" },
+            "env": {
+                "TS_NODE_PROJECT": "tsconfig.json",
+                "NODE_ENV": "development"
+            },
             "sourceMaps": true,
             "cwd": "${workspaceRoot}",
             "protocol": "inspector",

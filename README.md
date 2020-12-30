@@ -32,5 +32,6 @@ TODO:
 - [x] 部署: Aliyun 测试服务器 
 - [x] logger 打印到文件
 - [x] dayjs 处理时间
+- [x] dotenv 处理环境变量
 
 sms 验证功能
