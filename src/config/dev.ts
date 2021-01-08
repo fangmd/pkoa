@@ -4,7 +4,7 @@ import { IConfig } from './base'
  * 本地开发环境 & 本地单元测试环境
  */
 export const devConf: IConfig = {
-  port: 9090,
+  port: process.env.SERVER_PORT || '9090',
   mysql: {
     host: process.env.DATABASE_HOST || '0.0.0.0',
     port: process.env.DATABASE_PORT || '3306',
@@ -14,6 +14,6 @@ export const devConf: IConfig = {
   },
   redis: {
     host: '127.0.0.1',
-    port: 6379
-  }
+    port: 6379,
+  },
 }

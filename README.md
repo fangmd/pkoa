@@ -1,28 +1,7 @@
 
-
-
 Koa 项目模版
 
-## 运行项目
-
-本地测试 docker:
-
-```
-docker-compose up -d
-```
-
-
-aliyun:(第一次要执行两次)
-
-```
-docker-compose -f docker-compose.test.yml up
-
-docker-compose -f docker-compose.test.yml up -d
-```
-
-## Others
-
-TODO:
+## Base Feature
 
 - [x] jwt
 - [x] ORM: typeorm, mysql2
@@ -34,4 +13,3 @@ TODO:
 - [x] dayjs 处理时间
 - [x] dotenv 处理环境变量
 
-sms 验证功能
