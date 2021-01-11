@@ -14,6 +14,7 @@ import { jwtSecret } from './utils/jwt-utils'
 import globalErrorHandle from './middleware/global-error'
 import example from './routers/example'
 import user from './routers/user'
+import adminApi from './routers/admin'
 import { isUniTest } from './utils/env'
 import { Server } from 'http'
 
@@ -27,12 +28,13 @@ app.use(cors())
 app.use(Bodyparser())
 app.use(
   jwt({ secret: jwtSecret }).unless({
-    path: [/^\/public/, /^\/example/, '/login', '/register', '/'],
+    path: [/^\/public/, /^\/example/, '/login', '/register', '/', '/api/admin/login'],
   })
 )
 // middleware end
 
 // router start
+app.use(adminApi.routes()).use(adminApi.allowedMethods())
 app.use(example.routes()).use(example.allowedMethods())
 app.use(user.routes()).use(user.allowedMethods())
 
