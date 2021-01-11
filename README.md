@@ -42,7 +42,7 @@ npm run serve
 - [x] logger 打印到文件
 - [x] dayjs 处理时间
 - [x] dotenv 处理环境变量
-- [ ] bullmq 任务队列(任务队列UI: bull-board/Taskforce, 未集成)
+- [x] bullmq 任务队列(任务队列UI: bull-board/Taskforce, 未集成)
 
 
 
