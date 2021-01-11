@@ -1,5 +1,6 @@
 import { initEnv } from './env'
 initEnv()
+import { addJobs } from './mq/test'
 import Koa from 'koa'
 import logger from 'koa-logger'
 import Config from './config'
@@ -48,6 +49,8 @@ if (isUniTest) {
   dbInit().then((res) => {
     app.listen(Config.port)
     console.log(`Server running on port ${Config.port}`)
+
+    addJobs()
   })
 }
 

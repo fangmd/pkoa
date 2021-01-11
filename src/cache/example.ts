@@ -4,7 +4,7 @@
 
 import { Example } from '../db/model'
 import { ExampleService } from '../service/example-service'
-import { get, set } from './redis'
+// import { get, set } from './redis'
 
 const KEY_PREFIX = 'pkoa:example:'
 
