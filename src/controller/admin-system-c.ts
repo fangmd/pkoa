@@ -1,4 +1,5 @@
 import { Context } from 'koa'
+import AdminUserService from '../service/admin-user-service'
 import { RoleService } from '../service/role-service'
 import HttpResult from '../utils/http-result'
 
@@ -49,4 +50,50 @@ export class AdminSystemC {
    * 获取 Role 详情
    */
   public static async getRole(ctx: Context) {}
+
+  /**
+   * 获取所有 管理员用户, 分页
+   */
+  static async adminUsers(ctx: Context) {
+    const { page, size } = ctx.request.query
+    const ret = await AdminUserService.query(page, size)
+    ctx.body = HttpResult.success({ list: ret[0], totalCnt: ret[1] })
+  }
+  /**
+   * 创建用户
+   */
+  static async createUser(ctx: Context) {
+    const { username, password, roleId, nickname } = ctx.request.body
+    const ret = await AdminUserService.add(username, password, roleId, nickname)
+    if (!ret) {
+      ctx.body = HttpResult.fail()
+    }
+    ctx.body = HttpResult.success()
+  }
+  /**
+   * 删除用户
+   */
+  static async deleteUser(ctx: Context) {
+    const { id } = ctx.request.query
+    const ret = await AdminUserService.delete(id)
+    if (!ret) {
+      ctx.body = HttpResult.fail()
+    }
+    ctx.body = HttpResult.success()
+  }
+  /**
+   * 更新用户
+   */
+  static async updateUser(ctx: Context) {
+    const { id, username, password, roleId, nickname, status } = ctx.request.body
+    const ret = await AdminUserService.update(id, username, password, roleId, nickname, status)
+    if (!ret) {
+      ctx.body = HttpResult.fail()
+    }
+    ctx.body = HttpResult.success()
+  }
+  /**
+   * 获取用户详情
+   */
+  static async getUser(ctx: Context) {}
 }

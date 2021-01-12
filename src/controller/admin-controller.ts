@@ -1,5 +1,6 @@
 import { Context } from 'koa'
 import HttpC from '../constants/http-c'
+import AdminUserService from '../service/admin-user-service'
 import { MenuService } from '../service/menu-service'
 import UserService from '../service/user-service'
 import HttpResult from '../utils/http-result'
@@ -11,7 +12,7 @@ export class AdminController {
    */
   public static async login(ctx: Context) {
     const { username, password } = ctx.request.body
-    const userInfo = await UserService.findUser(username!, password)
+    const userInfo = await AdminUserService.findUser(username!, password)
     if (!userInfo) {
       ctx.body = HttpResult.fail(HttpC.USER_NOT_EXIST)
       return
@@ -29,7 +30,7 @@ export class AdminController {
    */
   public static async menus(ctx: Context) {
     const userId = JwtUtils.getUserId(ctx)!
-    const userInfo = await UserService.getUserById(userId)
+    const userInfo = await AdminUserService.getUserById(userId)
     const menus = await MenuService.getAllMenu()
     ctx.body = HttpResult.success({
       username: userInfo!.username,

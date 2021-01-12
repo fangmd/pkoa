@@ -8,3 +8,14 @@ export class CreateRole {
   @IsNotEmpty()
   menuIds?: string
 }
+
+export class CreateAdminUser {
+  @IsNotEmpty()
+  username?: string
+  @IsNotEmpty()
+  password?: string
+  @IsNotEmpty()
+  roleId?: string
+  @IsNotEmpty()
+  nickname?: string
+}

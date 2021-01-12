@@ -1,8 +1,11 @@
 /**
  * @description router api test: example
  */
+import server, { safeShutdown, initAll } from '../_server'
 
-import server, { safeShutdown } from '../_server'
+beforeAll(async () => {
+  await initAll()
+})
 
 afterAll(async (done) => {
   await safeShutdown()

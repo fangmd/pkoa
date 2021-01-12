@@ -12,7 +12,7 @@ export class User extends BaseModel {
     unique: true,
   })
   username!: string
-  @Column({ comment: '密码' })
+  @Column({ comment: '密码', select: false })
   password!: string
   @Column({ comment: '昵称', nullable: true })
   nickname!: string
